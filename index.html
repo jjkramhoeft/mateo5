@@ -126,7 +126,7 @@
   #closeGame{top:12px;left:12px}
   #help{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);background:rgba(255,255,255,.93);
     padding:14px 24px;border-radius:24px;text-align:center;color:var(--ink);font-size:20px;font-weight:700;
-    box-shadow:0 8px 24px rgba(0,0,0,.2);transition:opacity .6s,transform .6s;pointer-events:none;width:max-content;max-width:92vw}
+    box-shadow:0 8px 24px rgba(0,0,0,.2);transition:opacity .5s,transform .5s;pointer-events:none;width:max-content;max-width:92vw}
   #help .keys{margin-top:8px;display:flex;gap:18px;justify-content:center;align-items:center;font-size:15px;font-weight:400}
   .kbd{display:inline-grid;grid-template-columns:repeat(3,26px);grid-template-rows:26px 26px;gap:3px}
   .kbd i{font-style:normal;display:flex;align-items:center;justify-content:center;background:#eef2ff;border:2px solid #b9c6f5;border-radius:6px;font-size:13px;font-weight:700;color:var(--navy)}
@@ -461,6 +461,7 @@ const keys=new Set();
 const KEYMAP={ArrowUp:'u',KeyW:'u',ArrowDown:'d',KeyS:'d',ArrowLeft:'l',KeyA:'l',ArrowRight:'r',KeyD:'r'};
 
 addEventListener('keydown',e=>{
+  if(G.active) hideHelp();
   const k=KEYMAP[e.code]; if(!k||!G.active) return;
   e.preventDefault(); keys.add(k); onMoveInput();
 });
@@ -482,8 +483,9 @@ gc.addEventListener('pointermove',e=>{ if(G.pointer===e.pointerId) setTarget(e);
 ['pointerup','pointercancel'].forEach(t=>gc.addEventListener(t,e=>{ if(G.pointer===e.pointerId) G.pointer=null; }));
 $('win').addEventListener('pointerdown',e=>{ if(e.target.id==='win') onMoveInput(); });
 addEventListener('touchstart',()=>document.body.classList.add('touch'),{once:true,passive:true});
+function hideHelp(){ if(!G.moved){ G.moved=true; $('help').classList.add('hide'); } }
 function onMoveInput(){
-  if(!G.moved){ G.moved=true; setTimeout(()=>$('help').classList.add('hide'),1500); }
+  hideHelp();
   if(G.won && G.canRestart) restartGame();
 }
 
