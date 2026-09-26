@@ -2,6 +2,8 @@
 
 A birthday card and small game for Mateo's 5th birthday, in one self-contained HTML file ([index.html](index.html)).
 
+**▶ Open the card: https://jjkramhoeft.github.io/mateo5/**
+
 Tap the card to open it, then play the present game: walk Mateo around with the arrow keys or WASD, or by tapping on a phone, and open all five presents.
 
 ## How it was made
